@@ -2,8 +2,8 @@ cluster.name: map
 node.name: "map-node-1"
 http.cors.enabled: true
 http.cors.allow-origin: /.*/
-# network.host: []
-http.host: 0.0.0.0
+network.host: 0.0.0.0
+# http.host: 0.0.0.0
 http.port: 9200
 transport.tcp.port: 9300
 script.inline: true
