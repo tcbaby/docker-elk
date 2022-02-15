@@ -1,0 +1,27 @@
+version: '3'
+networks:
+  default:
+    external:
+      name: ${NAME_PREFIX}_network
+
+services:
+  elasticsearch:
+    image: elasticsearch:${ELK_VERSION}
+    container_name: ${NAME_PREFIX}_es
+    environment:
+      ES_JAVA_OPTS: ${ES_JAVA_OPTS}
+    ports:
+      - ${ES_HTTP_PORT}:9200
+      - ${ES_TCP_PORT}:9300
+    volumes:
+      - ./es/data:/usr/share/elasticsearch/data
+      - ./es/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    restart: always
+  kibana:
+    image: kibana:${ELK_VERSION}
+    container_name: ${NAME_PREFIX}_kibana
+    ports:
+      - ${KIBANA_HTTP_PORT}:5601
+    depends_on:
+      - elasticsearch
+    restart: always
